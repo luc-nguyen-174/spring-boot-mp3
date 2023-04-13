@@ -82,4 +82,5 @@ public class AuthController {
     public ResponseEntity<String> user() {
         return new ResponseEntity<>("User", HttpStatus.OK);
     }
+
 }
