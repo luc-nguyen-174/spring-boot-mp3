@@ -1,6 +1,7 @@
 package com.example.mp3.model.user;
 
 import com.example.mp3.model.music.PlayList;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,7 +26,8 @@ public class AppUser {
     private String address;
     private String email;
     private String phone;
-    private String avatar;
+    @Lob
+    private byte[] avatar;
     @OneToMany(mappedBy = "users")
     private List<PlayList> playLists;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -36,7 +38,7 @@ public class AppUser {
     public AppUser() {
     }
 
-    public AppUser(String username, String password, String name, String address, String email, String phone, String avatar, Set<AppRole> roleSet) {
+    public AppUser(String username, String password, String name, String address, String email, String phone, byte[] avatar, List<PlayList> playLists, Set<AppRole> roleSet) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -44,6 +46,7 @@ public class AppUser {
         this.email = email;
         this.phone = phone;
         this.avatar = avatar;
+        this.playLists = playLists;
         this.roleSet = roleSet;
     }
 
@@ -54,6 +57,17 @@ public class AppUser {
         this.address = address;
         this.username = username;
         this.password = password;
+    }
+
+
+    public AppUser(String name, String phone, String email, String address, byte[] bytes, String username, String password) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.username = username;
+        this.password = password;
+        this.avatar = bytes;
     }
 
     public Long getId() {
@@ -112,11 +126,11 @@ public class AppUser {
         this.phone = phone;
     }
 
-    public String getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 
