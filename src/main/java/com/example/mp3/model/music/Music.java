@@ -3,7 +3,6 @@ package com.example.mp3.model.music;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -23,7 +22,7 @@ public class Music {
             joinColumns = {@JoinColumn(name = "music_id")},
             inverseJoinColumns = {@JoinColumn(name = "singers_id")}
     )
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<Singer> singers;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -51,7 +50,12 @@ public class Music {
     )
     private Set<Author> authors;
 
+    @ManyToMany(mappedBy = "musics")
+    private Set<Playlist> playlists;
+
     private LocalDateTime uploadTime;
+
+
     public Music() {
     }
 
@@ -133,5 +137,13 @@ public class Music {
 
     public void setUploadTime(LocalDateTime uploadTime) {
         this.uploadTime = uploadTime;
+    }
+
+    public Set<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+    public void setPlaylists(Set<Playlist> playlists) {
+        this.playlists = playlists;
     }
 }
