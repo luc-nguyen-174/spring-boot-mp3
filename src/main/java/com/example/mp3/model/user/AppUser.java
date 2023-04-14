@@ -1,7 +1,6 @@
 package com.example.mp3.model.user;
 
 import com.example.mp3.model.music.PlayList;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.List;
@@ -27,7 +26,7 @@ public class AppUser {
     private String email;
     private String phone;
     @Lob
-    private byte[] avatar;
+    private String avatar;
     @OneToMany(mappedBy = "users")
     private List<PlayList> playLists;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -38,7 +37,7 @@ public class AppUser {
     public AppUser() {
     }
 
-    public AppUser(String username, String password, String name, String address, String email, String phone, byte[] avatar, List<PlayList> playLists, Set<AppRole> roleSet) {
+    public AppUser(String username, String password, String name, String address, String email, String phone, String avatar, List<PlayList> playLists, Set<AppRole> roleSet) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -60,7 +59,7 @@ public class AppUser {
     }
 
 
-    public AppUser(String name, String phone, String email, String address, byte[] bytes, String username, String password) {
+    public AppUser(String name, String phone, String email, String address, String bytes, String username, String password) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -72,6 +71,14 @@ public class AppUser {
 
     public Long getId() {
         return id;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public void setId(Long id) {
@@ -126,13 +133,7 @@ public class AppUser {
         this.phone = phone;
     }
 
-    public byte[] getAvatar() {
-        return avatar;
-    }
 
-    public void setAvatar(byte[] avatar) {
-        this.avatar = avatar;
-    }
 
     public Set<AppRole> getRoleSet() {
         return roleSet;
