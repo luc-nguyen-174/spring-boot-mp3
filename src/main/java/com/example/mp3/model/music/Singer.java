@@ -25,6 +25,16 @@ public class Singer {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<Kind> kinds;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "singers_albums",
+            joinColumns = {@JoinColumn(name = "singers_id")},
+            inverseJoinColumns = {@JoinColumn(name = "album_id")}
+    )
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Set<Album> albums;
+
+
     private String story;
 
     @ManyToMany(mappedBy = "singers")
