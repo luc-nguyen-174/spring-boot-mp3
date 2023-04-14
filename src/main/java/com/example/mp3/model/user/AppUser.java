@@ -38,7 +38,7 @@ public class AppUser {
     public AppUser() {
     }
 
-    public AppUser(String username, String password, String name, String address, String email, String phone, String avatar, List<PlayList> playLists, Set<AppRole> roleSet) {
+    public AppUser(String username, String password, String name, String address, String email, String phone, String avatar, List<Playlist> playLists, Set<AppRole> roleSet) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -46,7 +46,7 @@ public class AppUser {
         this.email = email;
         this.phone = phone;
         this.avatar = avatar;
-        this.playLists = playLists;
+        this.playlists = playLists;
         this.roleSet = roleSet;
     }
 

@@ -34,19 +34,19 @@ public class AppRoleService implements IAppRoleService {
     public void remove(Long id) {
 
     }
+
     @Override
     public AppRole findByName(String name) {
         return roleRepo.findByName(name);
     }
+
     @Override
     public Set<AppRole> getRolesByName(Set<String> roleNames) {
         Set<AppRole> roles = new HashSet<>();
 
         for (String roleName : roleNames) {
             AppRole role = roleRepo.findByName(roleName);
-            if (role.equals("ROLE_ADMIN")) {
-                roles.add(role);
-            }else {
+            if (role != null) {
                 roles.add(role);
             }
         }
