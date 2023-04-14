@@ -19,11 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
@@ -52,10 +48,7 @@ public class AuthController {
         if (userService.existsByEmail(user.getEmail())) {
             return new ResponseEntity<>(new ResponseMessage("the email existed! please try again !"), HttpStatus.OK);
         }
-        MultipartFile multipartFile = user.getAvatar();
-        String fileName = multipartFile.getOriginalFilename();
-        FileCopyUtils.copy(user.getAvatar().getBytes(), new File(this.fileUpload+fileName));
-        AppUser appUser = new AppUser(user.getName(), user.getPhone(), user.getEmail(), user.getAddress(), fileName,
+        AppUser appUser = new AppUser(user.getName(), user.getPhone(), user.getEmail(), user.getAddress(),
                 user.getUsername(), user.getPassword());
         Set<String> roleNames = user.getRoles();
         Set<AppRole> roles = roleService.getRolesByName(roleNames);
@@ -91,13 +84,13 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/hello")
+    @GetMapping("/admin")
     public ResponseEntity<Iterable<ICountRole>> hello() {
         Iterable<ICountRole> iCountRoles = userService.getRoleNumber();
         return new ResponseEntity<>(iCountRoles, HttpStatus.OK);
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/")
     public ResponseEntity<String> admin() {
         return new ResponseEntity<>("Admin", HttpStatus.OK);
     }
