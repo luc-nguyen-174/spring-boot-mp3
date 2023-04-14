@@ -1,9 +1,9 @@
 package com.example.mp3.service.appuser;
 
-import com.example.mp3.model.AppUser;
+import com.example.mp3.model.user.AppUser;
 import com.example.mp3.model.DTO.ICountRole;
 import com.example.mp3.model.DTO.UserPrinciple;
-import com.example.mp3.repo.IAppUserRepo;
+import com.example.mp3.repo.user.IAppUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -1,7 +1,7 @@
 package com.example.mp3.service.approle;
 
-import com.example.mp3.model.AppRole;
-import com.example.mp3.repo.IAppRoleRepo;
+import com.example.mp3.model.user.AppRole;
+import com.example.mp3.repo.user.IAppRoleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

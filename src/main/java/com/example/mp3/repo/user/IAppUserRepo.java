@@ -1,6 +1,6 @@
-package com.example.mp3.repo;
+package com.example.mp3.repo.user;
 
-import com.example.mp3.model.AppUser;
+import com.example.mp3.model.user.AppUser;
 import com.example.mp3.model.DTO.ICountRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

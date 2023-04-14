@@ -1,6 +1,9 @@
-package com.example.mp3.model;
+package com.example.mp3.model.user;
+
+import com.example.mp3.model.music.PlayList;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,7 +26,8 @@ public class AppUser {
     private String email;
     private String phone;
     private String avatar;
-
+    @OneToMany(mappedBy = "users")
+    private List<PlayList> playLists;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
@@ -122,5 +126,13 @@ public class AppUser {
 
     public void setRoleSet(Set<AppRole> roleSet) {
         this.roleSet = roleSet;
+    }
+
+    public List<PlayList> getPlayLists() {
+        return playLists;
+    }
+
+    public void setPlayLists(List<PlayList> playLists) {
+        this.playLists = playLists;
     }
 }

@@ -1,7 +1,7 @@
 package com.example.mp3.controller;
 
-import com.example.mp3.model.AppRole;
-import com.example.mp3.model.AppUser;
+import com.example.mp3.model.user.AppRole;
+import com.example.mp3.model.user.AppUser;
 import com.example.mp3.model.DTO.ICountRole;
 import com.example.mp3.model.DTO.JwtResponse;
 import com.example.mp3.model.DTO.request.SignInForm;
@@ -18,14 +18,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
 @RestController
+@CrossOrigin("*")
 public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -66,6 +64,7 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(),
                 userDetails.getUsername(), userDetails.getAuthorities()));
     }
+
 
     @GetMapping("/hello")
     public ResponseEntity<Iterable<ICountRole>> hello() {
