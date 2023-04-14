@@ -11,6 +11,7 @@ import com.example.mp3.service.approle.IAppRoleService;
 import com.example.mp3.service.appuser.IAppUserService;
 import com.example.mp3.service.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,8 +19,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -34,15 +40,22 @@ public class AuthController {
     @Autowired
     private IAppRoleService roleService;
 
+    @Value("${upload.path}")
+    private String fileUpload;
+
+    //create user
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody SignUpForm user) {
+    public ResponseEntity<?> signup(@RequestBody SignUpForm user) throws IOException {
         if (userService.existsByUsername(user.getUsername())) {
             return new ResponseEntity<>(new ResponseMessage("the username existed! please try again !"), HttpStatus.OK);
         }
         if (userService.existsByEmail(user.getEmail())) {
             return new ResponseEntity<>(new ResponseMessage("the email existed! please try again !"), HttpStatus.OK);
         }
-        AppUser appUser = new AppUser(user.getName(), user.getPhone(), user.getEmail(), user.getAddress(),
+        MultipartFile multipartFile = user.getAvatar();
+        String fileName = multipartFile.getOriginalFilename();
+        FileCopyUtils.copy(user.getAvatar().getBytes(), new File(this.fileUpload+fileName));
+        AppUser appUser = new AppUser(user.getName(), user.getPhone(), user.getEmail(), user.getAddress(), fileName,
                 user.getUsername(), user.getPassword());
         Set<String> roleNames = user.getRoles();
         Set<AppRole> roles = roleService.getRolesByName(roleNames);
@@ -51,6 +64,7 @@ public class AuthController {
         return new ResponseEntity<>(new ResponseMessage("Create user success !"), HttpStatus.OK);
     }
 
+    // login user
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody SignInForm user) {
         Authentication authentication = authenticationManager.authenticate(
@@ -65,6 +79,17 @@ public class AuthController {
                 userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
+    //edit user
+    @PutMapping("/{id}")
+    public ResponseEntity<AppUser> update(@PathVariable Long id, @RequestBody AppUser user) {
+        Optional<AppUser> userOptional = userService.findById(id);
+        if (userOptional.isPresent()) {
+            user.setId(id);
+            return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @GetMapping("/hello")
     public ResponseEntity<Iterable<ICountRole>> hello() {
