@@ -11,6 +11,7 @@ import com.example.mp3.service.approle.IAppRoleService;
 import com.example.mp3.service.appuser.IAppUserService;
 import com.example.mp3.service.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,9 +19,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
@@ -37,6 +40,9 @@ public class AuthController {
     @Autowired
     private IAppRoleService roleService;
 
+    @Value("${upload.path}")
+    private String fileUpload;
+
     //create user
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody SignUpForm user) throws IOException {
@@ -46,7 +52,10 @@ public class AuthController {
         if (userService.existsByEmail(user.getEmail())) {
             return new ResponseEntity<>(new ResponseMessage("the email existed! please try again !"), HttpStatus.OK);
         }
-        AppUser appUser = new AppUser(user.getName(), user.getPhone(), user.getEmail(), user.getAddress(), user.getAvatar().getBytes(),
+        MultipartFile multipartFile = user.getAvatar();
+        String fileName = multipartFile.getOriginalFilename();
+        FileCopyUtils.copy(user.getAvatar().getBytes(), new File(this.fileUpload+fileName));
+        AppUser appUser = new AppUser(user.getName(), user.getPhone(), user.getEmail(), user.getAddress(), fileName,
                 user.getUsername(), user.getPassword());
         Set<String> roleNames = user.getRoles();
         Set<AppRole> roles = roleService.getRolesByName(roleNames);

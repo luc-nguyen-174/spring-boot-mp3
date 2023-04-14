@@ -20,11 +20,11 @@ public class UserPrinciple implements UserDetails {
     private String address;
     private String email;
     private String phone;
-    private byte[] avatar;
+    private String avatar;
 
     private Collection<? extends GrantedAuthority> roles;
 
-    public UserPrinciple(String username, String password, String name, String address, String email, String phone, byte[] avatar, Collection<? extends GrantedAuthority> roles) {
+    public UserPrinciple(String username, String password, String name, String address, String email, String phone, String avatar, Collection<? extends GrantedAuthority> roles) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -96,11 +96,11 @@ public class UserPrinciple implements UserDetails {
         this.phone = phone;
     }
 
-    public byte[] getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(byte[] avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
