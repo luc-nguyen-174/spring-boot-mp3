@@ -1,6 +1,6 @@
 package com.example.mp3.model.DTO;
 
-import com.example.mp3.model.AppUser;
+import com.example.mp3.model.user.AppUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

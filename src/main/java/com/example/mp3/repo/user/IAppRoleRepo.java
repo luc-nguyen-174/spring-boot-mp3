@@ -1,6 +1,6 @@
-package com.example.mp3.repo;
+package com.example.mp3.repo.user;
 
-import com.example.mp3.model.AppRole;
+import com.example.mp3.model.user.AppRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

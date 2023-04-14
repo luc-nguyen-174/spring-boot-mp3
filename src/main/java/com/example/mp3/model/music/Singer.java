@@ -12,7 +12,6 @@ public class Singer {
 
     @Id
     private Long id;
-
     private String singerName;
     private String gender;
     private LocalDate birthday;
