@@ -1,6 +1,5 @@
 package com.example.mp3.service.music;
 
-import com.example.mp3.model.AppRole;
 import com.example.mp3.model.music.Singer;
 import com.example.mp3.repo.musicRepo.ISingerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
