@@ -1,4 +1,4 @@
-package com.example.mp3.model;
+package com.example.mp3.model.user;
 
 import javax.persistence.*;
 

@@ -1,6 +1,6 @@
 package com.example.mp3.service.appuser;
 
-import com.example.mp3.model.AppUser;
+import com.example.mp3.model.user.AppUser;
 import com.example.mp3.model.DTO.ICountRole;
 import com.example.mp3.service.IGeneralService;
 import org.springframework.security.core.userdetails.UserDetailsService;
