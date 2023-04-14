@@ -2,14 +2,14 @@ package com.example.mp3.repo.user;
 
 import com.example.mp3.model.user.AppUser;
 import com.example.mp3.model.DTO.ICountRole;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface IAppUserRepo extends JpaRepository<AppUser, Long> {
+public interface IAppUserRepo extends CrudRepository<AppUser, Long> {
     Optional<AppUser> findByUsername(String name);
     Boolean existsByUsername(String username);
 
