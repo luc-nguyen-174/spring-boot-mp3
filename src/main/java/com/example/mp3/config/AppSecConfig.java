@@ -27,21 +27,21 @@ public class AppSecConfig extends WebSecurityConfigurerAdapter {
         return new JwtAuthenticationFilter();
     }
 
-   @Bean(BeanIds.AUTHENTICATION_MANAGER)
+    @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
-        return  super.authenticationManager();
+        return super.authenticationManager();
     }
 
 
     @Bean
-    public RestAuthenticationEntryPoint restAuthenticationEntryPoint(){
-       return new RestAuthenticationEntryPoint();
+    public RestAuthenticationEntryPoint restAuthenticationEntryPoint() {
+        return new RestAuthenticationEntryPoint();
     }
 
     @Bean
-    public CustomAccessDeniedHandler customAccessDeniedHandler(){
-       return new CustomAccessDeniedHandler();
+    public CustomAccessDeniedHandler customAccessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
     }
 
     @Autowired
