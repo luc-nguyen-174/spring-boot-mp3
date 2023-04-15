@@ -1,4 +1,4 @@
-package com.example.mp3.service.music;
+package com.example.mp3.service.music.interfaceMusic;
 import com.example.mp3.model.music.Singer;
 import com.example.mp3.service.IGeneralService;
 
