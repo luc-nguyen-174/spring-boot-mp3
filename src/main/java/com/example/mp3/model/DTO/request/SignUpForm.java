@@ -1,8 +1,11 @@
 package com.example.mp3.model.DTO.request;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.Set;
 
 public class SignUpForm {
+    private Long id;
     private String name;
     private String phone;
     private String email;
@@ -10,18 +13,25 @@ public class SignUpForm {
     private String username;
     private String password;
     private Set<String> roles;
+    private MultipartFile avatar;
 
     public SignUpForm() {
     }
 
-    public SignUpForm(String name, String phone, String email, String address, String username, String password, Set<String> roles) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.username = username;
-        this.password = password;
-        this.roles = roles;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public MultipartFile getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(MultipartFile avatar) {
+        this.avatar = avatar;
     }
 
     public String getAddress() {

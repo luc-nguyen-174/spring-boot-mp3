@@ -1,7 +1,7 @@
 package com.example.mp3.controller;
 
 import com.example.mp3.model.music.Singer;
-import com.example.mp3.service.music.ISingerService;
+import com.example.mp3.service.music.interfaceMusic.ISingerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +25,7 @@ public class SingerController {
     public ResponseEntity<Singer> createSinger(@RequestBody Singer singer){
         return ResponseEntity.ok(singerService.save(singer));
     }
+
     @DeleteMapping("{id}")
     public ResponseEntity<Singer> deleteSinger(@PathVariable Long id){
         Optional<Singer> optionalSinger =singerService.findById(id);

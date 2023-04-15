@@ -13,7 +13,7 @@ public class Kind {
 
     String kindName;
 
-    @ManyToMany(mappedBy = "kind")
+    @ManyToMany(mappedBy = "kinds")
     private Set<Singer> singers;
 
     public Kind() {

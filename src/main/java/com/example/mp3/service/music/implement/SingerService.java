@@ -1,7 +1,8 @@
-package com.example.mp3.service.music;
+package com.example.mp3.service.music.implement;
 
 import com.example.mp3.model.music.Singer;
 import com.example.mp3.repo.musicRepo.ISingerRepo;
+import com.example.mp3.service.music.interfaceMusic.ISingerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
