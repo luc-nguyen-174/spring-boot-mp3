@@ -16,14 +16,14 @@ public class Music {
     private String description;
     private String fileName;
     private String imageName;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinTable(
             name = "musics_singers",
             joinColumns = {@JoinColumn(name = "music_id")},
             inverseJoinColumns = {@JoinColumn(name = "singers_id")}
     )
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Set<Singer> singers;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Singer singers;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -34,21 +34,9 @@ public class Music {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<Kind> kinds;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "musics_albums",
-            joinColumns = {@JoinColumn(name = "music_id")},
-            inverseJoinColumns = {@JoinColumn(name = "kinds_id")}
-    )
-    private Set<Album> albums;
+    private String albums;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "musics_author",
-            joinColumns = {@JoinColumn(name = "music_id")},
-            inverseJoinColumns = {@JoinColumn(name = "author_id")}
-    )
-    private Set<Author> authors;
+    private String authors;
 
     @ManyToMany(mappedBy = "musics")
     private Set<Playlist> playlists;
@@ -99,11 +87,11 @@ public class Music {
         this.imageName = imageName;
     }
 
-    public Set<Singer> getSingers() {
+    public Singer getSingers() {
         return singers;
     }
 
-    public void setSingers(Set<Singer> singers) {
+    public void setSingers(Singer singers) {
         this.singers = singers;
     }
 
@@ -115,28 +103,20 @@ public class Music {
         this.kinds = kinds;
     }
 
-    public Set<Album> getAlbums() {
+    public String getAlbums() {
         return albums;
     }
 
-    public void setAlbums(Set<Album> albums) {
+    public void setAlbums(String albums) {
         this.albums = albums;
     }
 
-    public Set<Author> getAuthors() {
+    public String getAuthors() {
         return authors;
     }
 
-    public void setAuthors(Set<Author> authors) {
+    public void setAuthors(String authors) {
         this.authors = authors;
-    }
-
-    public LocalDateTime getUploadTime() {
-        return uploadTime;
-    }
-
-    public void setUploadTime(LocalDateTime uploadTime) {
-        this.uploadTime = uploadTime;
     }
 
     public Set<Playlist> getPlaylists() {
@@ -145,5 +125,13 @@ public class Music {
 
     public void setPlaylists(Set<Playlist> playlists) {
         this.playlists = playlists;
+    }
+
+    public LocalDateTime getUploadTime() {
+        return uploadTime;
+    }
+
+    public void setUploadTime(LocalDateTime uploadTime) {
+        this.uploadTime = uploadTime;
     }
 }
