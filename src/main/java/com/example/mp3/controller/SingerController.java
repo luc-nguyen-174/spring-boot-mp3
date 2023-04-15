@@ -25,6 +25,7 @@ public class SingerController {
     public ResponseEntity<Singer> createSinger(@RequestBody Singer singer){
         return ResponseEntity.ok(singerService.save(singer));
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Singer> deleteSinger(@PathVariable Long id){
         Optional<Singer> optionalSinger =singerService.findById(id);
