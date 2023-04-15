@@ -25,19 +25,10 @@ public class Singer {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<Kind> kinds;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "singers_albums",
-            joinColumns = {@JoinColumn(name = "singers_id")},
-            inverseJoinColumns = {@JoinColumn(name = "album_id")}
-    )
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Set<Album> albums;
-
 
     private String story;
 
-    @ManyToMany(mappedBy = "singers")
+    @OneToMany(mappedBy = "singers")
     private Set<Music> musics;
 
     private String otherInformation;
@@ -45,22 +36,12 @@ public class Singer {
     public Singer() {
     }
 
-    public Singer(String singerName, String gender, LocalDate birthday, Set<Kind> kinds, String story, Set<Music> musics, String otherInformation) {
-        this.singerName = singerName;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.kinds = kinds;
-        this.story = story;
-        this.musics = musics;
-        this.otherInformation = otherInformation;
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getSingerName() {
