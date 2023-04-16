@@ -30,6 +30,7 @@ public class Singer {
     private String story;
 
     @OneToMany(mappedBy = "singers")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<Music> musics;
 
     private String otherInformation;

@@ -33,6 +33,7 @@ public class Playlist {
     @JoinTable(name = "playlist_users",
             joinColumns = {@JoinColumn(name = "playlist_id")},
             inverseJoinColumns = {@JoinColumn(name = "users_id")})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<AppUser> users;
 
     private String description;

@@ -39,6 +39,7 @@ public class Music {
     private String authors;
 
     @ManyToMany(mappedBy = "musics")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<Playlist> playlists;
 
     private LocalDateTime uploadTime;
