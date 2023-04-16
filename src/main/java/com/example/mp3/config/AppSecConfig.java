@@ -15,9 +15,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
-public class AppSecConfig extends WebSecurityConfigurerAdapter {
+public class AppSecConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     @Autowired
     private IAppUserService appUserService;
@@ -48,23 +52,22 @@ public class AppSecConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(appUserService).passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
-
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedMethods("*");
+    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().ignoringAntMatchers("/**");
         http.httpBasic().authenticationEntryPoint(restAuthenticationEntryPoint());
-        http.authorizeRequests()
+        http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/", "/login").permitAll()
                 .and().authorizeRequests().antMatchers("/admin**").hasAnyRole("ADMIN")
-                .and().authorizeRequests().antMatchers("/user**").hasAnyRole("USER")
-                .and()
-                .csrf().disable();
+                .and().authorizeRequests().antMatchers("/user**").hasAnyRole("USER");
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.cors();
     }
-
 }
 

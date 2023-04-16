@@ -11,12 +11,12 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/singers")
+@RequestMapping("/admin/singers")
 public class SingerController {
     @Autowired
     private ISingerService singerService;
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<Iterable<Singer>> showListSinger(){
         return ResponseEntity.ok(singerService.findAll());
     }
@@ -25,7 +25,8 @@ public class SingerController {
     public ResponseEntity<Singer> createSinger(@RequestBody Singer singer){
         return ResponseEntity.ok(singerService.save(singer));
     }
-    @DeleteMapping("/delete/{id}")
+
+    @DeleteMapping("{id}")
     public ResponseEntity<Singer> deleteSinger(@PathVariable Long id){
         Optional<Singer> optionalSinger =singerService.findById(id);
         if(optionalSinger.isEmpty()){
