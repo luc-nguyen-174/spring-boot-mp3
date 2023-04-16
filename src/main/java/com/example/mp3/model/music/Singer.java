@@ -36,6 +36,15 @@ public class Singer {
     public Singer() {
     }
 
+    public Singer(Long id, String singerName, String gender, LocalDate birthday, String story, String otherInformation) {
+        this.id = id;
+        this.singerName = singerName;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.story = story;
+        this.otherInformation = otherInformation;
+    }
+
     public Long getId() {
         return id;
     }
