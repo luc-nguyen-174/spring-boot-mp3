@@ -37,12 +37,19 @@ public class MusicService implements IMusicService {
 
 
     @Override
-    public Iterable<Music> findAllByMusicNameContainingIgnoreCaseOrSingersContainingIgnoreCaseOrAuthorsNotContainingIgnoreCase(String musicName, Singer singers, String authors) {
-        return musicRepository.findAllByMusicNameContainingIgnoreCaseOrSingersContainingIgnoreCaseOrAuthorsNotContainingIgnoreCase(musicName, singers, authors);
+    public Iterable<Music> findAllByMusicNameContainingIgnoreCaseOrAuthorsNotContainingIgnoreCase(String musicName, String authors) {
+        return musicRepository.findAllByMusicNameContainingIgnoreCaseOrAuthorsNotContainingIgnoreCase(musicName, authors);
     }
 
     @Override
     public Iterable<Music> findAllByAlbumsContainingIgnoreCase(String album) {
         return musicRepository.findAllByAlbumsContainingIgnoreCase(album);
     }
+
+    @Override
+    public Iterable<Music> findAllBySingerName(String singer_name) {
+        return musicRepository.findAllBySingerName(singer_name);
+    }
+
+
 }
