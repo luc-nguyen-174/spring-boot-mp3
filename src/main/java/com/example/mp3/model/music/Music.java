@@ -47,6 +47,17 @@ public class Music {
     public Music() {
     }
 
+    public Music(Long id, String musicName, String description, String fileName, String imageName, String albums, String authors, LocalDateTime uploadTime) {
+        this.id = id;
+        this.musicName = musicName;
+        this.description = description;
+        this.fileName = fileName;
+        this.imageName = imageName;
+        this.albums = albums;
+        this.authors = authors;
+        this.uploadTime = uploadTime;
+    }
+
     public Long getId() {
         return id;
     }

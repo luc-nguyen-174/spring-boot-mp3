@@ -1,14 +1,17 @@
 package com.example.mp3.service.music.interfaceMusic;
 
-import com.example.mp3.model.music.Author;
 import com.example.mp3.model.music.Music;
-import com.example.mp3.model.music.Singer;
-import com.example.mp3.repo.musicRepo.IMusicRepository;
 import com.example.mp3.service.IGeneralService;
+import org.springframework.data.repository.query.Param;
 
-import java.util.Set;
+import java.util.Optional;
+
 
 public interface IMusicService extends IGeneralService<Music> {
-    Iterable<Music> findAllByMusicNameOrSingersOrAuthors(String musicName, Set<Singer> singers, Set<Author> authors);
+    Iterable<Music> findAllByMusicNameContainingIgnoreCaseOrAuthorsNotContainingIgnoreCase(
+            String musicName,
+            String authors);
+    Iterable<Music> findAllByAlbumsContainingIgnoreCase(String album);
 
+    Iterable<Music> findAllBySingerName(@Param("singer_name") String singer_name);
 }
