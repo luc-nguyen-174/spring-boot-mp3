@@ -11,6 +11,7 @@ import java.util.Set;
 public class Singer {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String singerName;
     private String gender;
