@@ -7,10 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 
 public interface IMusicRepository extends JpaRepository<Music, Long> {
-    Iterable<Music> findAllByMusicNameContainingIgnoreCaseOrAuthorsNotContainingIgnoreCase(
-            String musicName,
-            String authors);
-
     Iterable<Music> findAllByAlbumsContainingIgnoreCase(String album);
 
     @Query(nativeQuery = true,

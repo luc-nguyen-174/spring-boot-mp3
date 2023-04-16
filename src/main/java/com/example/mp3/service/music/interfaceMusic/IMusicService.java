@@ -8,9 +8,6 @@ import java.util.Optional;
 
 
 public interface IMusicService extends IGeneralService<Music> {
-    Iterable<Music> findAllByMusicNameContainingIgnoreCaseOrAuthorsNotContainingIgnoreCase(
-            String musicName,
-            String authors);
     Iterable<Music> findAllByAlbumsContainingIgnoreCase(String album);
 
     Iterable<Music> findAllBySingerName(@Param("singer_name") String singer_name);

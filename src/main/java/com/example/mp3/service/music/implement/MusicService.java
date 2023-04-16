@@ -1,7 +1,6 @@
 package com.example.mp3.service.music.implement;
 
 import com.example.mp3.model.music.Music;
-import com.example.mp3.model.music.Singer;
 import com.example.mp3.repo.musicRepo.IMusicRepository;
 import com.example.mp3.service.music.interfaceMusic.IMusicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +32,6 @@ public class MusicService implements IMusicService {
     @Override
     public void remove(Long id) {
         musicRepository.deleteById(id);
-    }
-
-
-    @Override
-    public Iterable<Music> findAllByMusicNameContainingIgnoreCaseOrAuthorsNotContainingIgnoreCase(String musicName, String authors) {
-        return musicRepository.findAllByMusicNameContainingIgnoreCaseOrAuthorsNotContainingIgnoreCase(musicName, authors);
     }
 
     @Override
