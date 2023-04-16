@@ -18,6 +18,7 @@ public class Playlist {
     @JoinTable(name = "playlist_kind",
             joinColumns = {@JoinColumn(name = "list_id")},
             inverseJoinColumns = {@JoinColumn(name = "kind_id")})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<Kind> kinds;
 
     @ManyToMany(fetch = FetchType.EAGER)
