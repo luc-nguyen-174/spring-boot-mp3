@@ -33,21 +33,18 @@ public class SingerController {
 
     @PostMapping("/create")
     public ResponseEntity<Singer> createSinger(@ModelAttribute SingerForm singerForm){
-        Singer singer = new Singer(singerForm.getSingerName(), singerForm.getGender(), singerForm.getBirthday(),
-                singerForm.getStory(), singerForm.getOtherInformation());
-
         MultipartFile multipartFile = singerForm.getImage();
         String fileName = multipartFile.getOriginalFilename();
-        String fileExtension = fileName.substring(fileName.lastIndexOf(".")); // Lấy phần mở rộng của tệp
         String randomFileName = UUID.randomUUID().toString(); // Tạo tên tệp ngẫu nhiên
         String fileUpload = env.getProperty("upload.path").toString();
 
         try {
-            FileCopyUtils.copy(singerForm.getImage().getBytes(), new File(fileUpload + randomFileName + fileName + fileExtension));
+            FileCopyUtils.copy(singerForm.getImage().getBytes(), new File(fileUpload + randomFileName + fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        singer.setImage(randomFileName + fileName);
+        Singer singer = new Singer(singerForm.getSingerName(), singerForm.getGender(), singerForm.getBirthday(),
+                singerForm.getStory(), singerForm.getOtherInformation(),fileName);
 
         return ResponseEntity.ok(singerService.save(singer));
     }

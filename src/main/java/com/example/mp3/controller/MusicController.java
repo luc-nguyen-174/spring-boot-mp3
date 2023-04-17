@@ -46,21 +46,19 @@ public class MusicController {
 
         MultipartFile fileMultipart = request.getFile("fileName");
         String fileName = fileMultipart.getOriginalFilename();
-        String fileExtension = fileName.substring(fileName.lastIndexOf(".")); // Lấy phần mở rộng của tệp
         String randomFileName = UUID.randomUUID().toString(); // Tạo tên tệp ngẫu nhiên
 
         String fileUpload = environment.getProperty("upload.path").toString();
 
         MultipartFile imageMultipart = request.getFile("imageName");
         String imageName = imageMultipart.getOriginalFilename();
-        String imageExtension = imageName.substring(imageName.lastIndexOf(".")); // Lấy phần mở rộng của tệp
         String randomImageName = UUID.randomUUID().toString(); // Tạo tên tệp ngẫu nhiên
 
         String imageUpload = environment.getProperty("upload.path").toString();
 
         try {
-            fileMultipart.transferTo(new File(fileUpload + randomFileName + fileName + fileExtension));
-            imageMultipart.transferTo(new File(imageUpload + randomImageName + imageName + imageExtension));
+            fileMultipart.transferTo(new File(fileUpload + randomFileName + fileName));
+            imageMultipart.transferTo(new File(imageUpload + randomImageName + imageName));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

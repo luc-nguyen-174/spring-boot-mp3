@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -45,6 +46,15 @@ public class Singer {
         this.birthday = birthday;
         this.story = story;
         this.otherInformation = otherInformation;
+    }
+
+    public Singer(String singerName, String gender, LocalDate birthday, String story, String otherInformation, String fileName) {
+        this.singerName = singerName;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.story = story;
+        this.otherInformation = otherInformation;
+        this.image = fileName;
     }
 
 
