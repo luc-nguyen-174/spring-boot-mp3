@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin("*")
@@ -37,13 +38,15 @@ public class SingerController {
 
         MultipartFile multipartFile = singerForm.getImage();
         String fileName = multipartFile.getOriginalFilename();
+        String randomFileName = UUID.randomUUID().toString() ;
         String fileUpload = env.getProperty("upload.path").toString();
+
         try {
-            FileCopyUtils.copy(singerForm.getImage().getBytes(), new File(fileUpload + fileName));
+            FileCopyUtils.copy(singerForm.getImage().getBytes(), new File(fileUpload + randomFileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        singer.setImage(fileName);
+        singer.setImage(randomFileName + fileName);
 
         return ResponseEntity.ok(singerService.save(singer));
     }
