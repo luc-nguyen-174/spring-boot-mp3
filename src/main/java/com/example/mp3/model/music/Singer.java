@@ -32,6 +32,7 @@ public class Singer {
     @OneToMany(mappedBy = "singers")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<Music> musics;
+    private String avatar;
 
     private String otherInformation;
 
@@ -44,6 +45,19 @@ public class Singer {
         this.gender = gender;
         this.birthday = birthday;
         this.story = story;
+        this.otherInformation = otherInformation;
+    }
+
+    public Singer(Long id, String singerName, String gender, LocalDate birthday, Set<Kind> kinds,
+                  String story, Set<Music> musics, String avatar, String otherInformation) {
+        this.id = id;
+        this.singerName = singerName;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.kinds = kinds;
+        this.story = story;
+        this.musics = musics;
+        this.avatar = avatar;
         this.otherInformation = otherInformation;
     }
 
@@ -105,6 +119,14 @@ public class Singer {
 
     public String getOtherInformation() {
         return otherInformation;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public void setOtherInformation(String otherInformation) {
