@@ -19,6 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -47,25 +48,23 @@ public class AuthController {
 
     //create user
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(MultipartHttpServletRequest request, @ModelAttribute SignUpForm user) throws IOException {
+    public ResponseEntity<?> signup(@ModelAttribute SignUpForm user) {
         if (userService.existsByUsername(user.getUsername())) {
             return new ResponseEntity<>(new ResponseMessage("the username existed! please try again !"), HttpStatus.OK);
         }
         if (userService.existsByEmail(user.getEmail())) {
             return new ResponseEntity<>(new ResponseMessage("the email existed! please try again !"), HttpStatus.OK);
         }
-        AppUser appUser = new AppUser(request.getParameter("name"), request.getParameter("phone"),
-                request.getParameter("email"), request.getParameter("address"),
-                request.getParameter("username"), request.getParameter("password"));
-        MultipartFile multipartFile = request.getFile("avatar");
+        MultipartFile multipartFile = user.getAvatar();
         String avatar = multipartFile.getOriginalFilename();
         String randomName = UUID.randomUUID().toString();
         try {
-            multipartFile.transferTo(new File(fileUpload + avatar));
+            FileCopyUtils.copy(user.getAvatar().getBytes(), new File(fileUpload + randomName + avatar));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        appUser.setAvatar(randomName + avatar);
+        AppUser appUser = new AppUser(user.getName(), user.getPhone(),user.getEmail(),user.getAddress(),
+                avatar,user.getUsername(),user.getPassword());
         Set<String> roleNames = user.getRoles();
         Set<AppRole> roles = roleService.getRolesByName(roleNames);
         appUser.setRoleSet(roles);
@@ -87,8 +86,8 @@ public class AuthController {
         String jwt = jwtService.generateTokenLogin(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         AppUser currentUser = userService.findByUsername(user.getUsername());
-        JwtResponse jwtResponse = new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(),
-                userDetails.getUsername(), userDetails.getAuthorities());
+        JwtResponse jwtResponse = new JwtResponse(jwt,currentUser.getId(), currentUser.getName(),
+                currentUser.getAvatar(), currentUser.getUsername(), userDetails.getAuthorities());
         return ResponseEntity.ok(jwtResponse);
     }
 

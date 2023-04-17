@@ -38,18 +38,6 @@ public class AppUser {
     public AppUser() {
     }
 
-    public AppUser(String username, String password, String name, String address, String email, String phone, String avatar, List<Playlist> playLists, Set<AppRole> roleSet) {
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.phone = phone;
-        this.avatar = avatar;
-        this.playlists = playLists;
-        this.roleSet = roleSet;
-    }
-
     public AppUser(String name, String phone, String email, String address, String username, String password) {
         this.name = name;
         this.phone = phone;
@@ -59,15 +47,14 @@ public class AppUser {
         this.password = password;
     }
 
-
-    public AppUser(String name, String phone, String email, String address, String bytes, String username, String password) {
+    public AppUser(String name, String phone, String email, String address, String avatar, String username, String password) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.username = username;
         this.password = password;
-        this.avatar = bytes;
+        this.avatar = avatar;
     }
 
     public Long getId() {
@@ -151,4 +138,5 @@ public class AppUser {
     public void setPlaylists(List<Playlist> playlists) {
         this.playlists = playlists;
     }
+
 }
