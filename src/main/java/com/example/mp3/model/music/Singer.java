@@ -3,6 +3,7 @@ package com.example.mp3.model.music;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ public class Singer {
     private Long id;
     private String singerName;
     private String gender;
-    private LocalDate birthday;
+    private Date birthday;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -39,12 +40,13 @@ public class Singer {
     public Singer() {
     }
 
-    public Singer(String singerName, String gender, LocalDate birthday, String story, String otherInformation) {
+    public Singer(String singerName, String gender, Date birthday, String story, String otherInformation, String fileName) {
         this.singerName = singerName;
         this.gender = gender;
         this.birthday = birthday;
         this.story = story;
         this.otherInformation = otherInformation;
+        this.image = fileName;
     }
 
 
@@ -72,11 +74,11 @@ public class Singer {
         this.gender = gender;
     }
 
-    public LocalDate getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 

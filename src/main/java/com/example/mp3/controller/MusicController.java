@@ -38,32 +38,6 @@ public class MusicController {
         return new ResponseEntity<>(musics, HttpStatus.OK);
     }
 
-    //    @PostMapping("/create")
-//    public ResponseEntity<Music> createMusic(@ModelAttribute MusicForm musicForm) {
-//
-//        Music music = new Music(musicForm.getMusicName(), musicForm.getDescription(), musicForm.getAlbums(),
-//                musicForm.getAuthors());
-//
-//        MultipartFile fileMultipart = musicForm.getFileName();
-//        String fileName = fileMultipart.getOriginalFilename();
-//        String fileUpload = environment.getProperty("upload.path").toString();
-//
-//        MultipartFile imageMultipart = musicForm.getImageName();
-//        String imageName = imageMultipart.getOriginalFilename();
-//        String imageUpload = environment.getProperty("upload.path").toString();
-//
-//        try {
-//            FileCopyUtils.copy(musicForm.getFileName().getBytes(),new File(fileUpload + fileName));
-//            FileCopyUtils.copy(musicForm.getImageName().getBytes(),new File(imageUpload + imageName));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        music.setFileName(fileName);
-//        music.setImageName(imageName);
-//        music.setUploadTime(LocalDateTime.now());
-//        musicService.save(music);
-//        return new ResponseEntity<>(HttpStatus.ACCEPTED);
-//    }
     @PostMapping("/create")
     public ResponseEntity<Music> createMusic(MultipartHttpServletRequest request) {
 
@@ -72,21 +46,19 @@ public class MusicController {
 
         MultipartFile fileMultipart = request.getFile("fileName");
         String fileName = fileMultipart.getOriginalFilename();
-        String fileExtension = fileName.substring(fileName.lastIndexOf(".")); // Lấy phần mở rộng của tệp
         String randomFileName = UUID.randomUUID().toString(); // Tạo tên tệp ngẫu nhiên
 
         String fileUpload = environment.getProperty("upload.path").toString();
 
         MultipartFile imageMultipart = request.getFile("imageName");
         String imageName = imageMultipart.getOriginalFilename();
-        String imageExtension = imageName.substring(imageName.lastIndexOf(".")); // Lấy phần mở rộng của tệp
         String randomImageName = UUID.randomUUID().toString(); // Tạo tên tệp ngẫu nhiên
 
         String imageUpload = environment.getProperty("upload.path").toString();
 
         try {
-            fileMultipart.transferTo(new File(fileUpload + randomFileName + fileName + fileExtension));
-            imageMultipart.transferTo(new File(imageUpload + randomImageName + imageName + imageExtension));
+            fileMultipart.transferTo(new File(fileUpload + randomFileName + fileName));
+            imageMultipart.transferTo(new File(imageUpload + randomImageName + imageName));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
