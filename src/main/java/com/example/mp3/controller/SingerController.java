@@ -38,11 +38,12 @@ public class SingerController {
 
         MultipartFile multipartFile = singerForm.getImage();
         String fileName = multipartFile.getOriginalFilename();
-        String randomFileName = UUID.randomUUID().toString() ;
+        String fileExtension = fileName.substring(fileName.lastIndexOf(".")); // Lấy phần mở rộng của tệp
+        String randomFileName = UUID.randomUUID().toString(); // Tạo tên tệp ngẫu nhiên
         String fileUpload = env.getProperty("upload.path").toString();
 
         try {
-            FileCopyUtils.copy(singerForm.getImage().getBytes(), new File(fileUpload + randomFileName));
+            FileCopyUtils.copy(singerForm.getImage().getBytes(), new File(fileUpload + randomFileName + fileName + fileExtension));
         } catch (IOException e) {
             e.printStackTrace();
         }
