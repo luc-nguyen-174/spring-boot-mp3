@@ -1,5 +1,6 @@
 package com.example.mp3.model.music;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ public class Music {
             joinColumns = {@JoinColumn(name = "music_id")},
             inverseJoinColumns = {@JoinColumn(name = "singers_id")}
     )
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     private Singer singers;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -31,7 +32,7 @@ public class Music {
             joinColumns = {@JoinColumn(name = "music_id")},
             inverseJoinColumns = {@JoinColumn(name = "kinds_id")}
     )
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     private Set<Kind> kinds;
 
     private String albums;
@@ -39,7 +40,7 @@ public class Music {
     private String authors;
 
     @ManyToMany(mappedBy = "musics")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     private Set<Playlist> playlists;
 
     private LocalDateTime uploadTime;

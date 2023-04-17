@@ -9,9 +9,7 @@ public class SingerForm {
     private String singerName;
     private String gender;
     private LocalDate birthday;
-    private Set<String> kinds;
     private String story;
-    private Set<String> musics;
     private MultipartFile image;
     private String otherInformation;
 
@@ -50,28 +48,12 @@ public class SingerForm {
         this.birthday = birthday;
     }
 
-    public Set<String> getKinds() {
-        return kinds;
-    }
-
-    public void setKinds(Set<String> kinds) {
-        this.kinds = kinds;
-    }
-
     public String getStory() {
         return story;
     }
 
     public void setStory(String story) {
         this.story = story;
-    }
-
-    public Set<String> getMusics() {
-        return musics;
-    }
-
-    public void setMusics(Set<String> musics) {
-        this.musics = musics;
     }
 
     public MultipartFile getImage() {
@@ -90,16 +72,4 @@ public class SingerForm {
         this.otherInformation = otherInformation;
     }
 
-    public SingerForm(String singerName, String gender, LocalDate birthday, Set<String> kinds, String story,
-                      Set<String> musics, MultipartFile image, String otherInformation) {
-        this.singerName = singerName;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.kinds = kinds;
-        this.story = story;
-        this.musics = musics;
-        this.image = image;
-        this.otherInformation = otherInformation;
-
-    }
 }
