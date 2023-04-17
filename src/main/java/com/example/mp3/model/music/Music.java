@@ -49,6 +49,31 @@ public class Music {
     public Music() {
     }
 
+    public Music(String musicName, String description, String albums, String authors) {
+        this.musicName = musicName;
+        this.description = description;
+        this.albums = albums;
+        this.authors = authors;
+    }
+
+    public Music(String musicName, String description, String albums, String authors, LocalDateTime uploadTime) {
+        this.musicName = musicName;
+        this.description = description;
+        this.albums = albums;
+        this.authors = authors;
+        this.uploadTime = uploadTime;
+    }
+
+    public Music(String musicName, String description, String fileName, String imageName, String albums, String authors, LocalDateTime uploadTime) {
+        this.musicName = musicName;
+        this.description = description;
+        this.fileName = fileName;
+        this.imageName = imageName;
+        this.albums = albums;
+        this.authors = authors;
+        this.uploadTime = uploadTime;
+    }
+
     public Music(Long id, String musicName, String description, String fileName, String imageName, String albums, String authors, LocalDateTime uploadTime) {
         this.id = id;
         this.musicName = musicName;
