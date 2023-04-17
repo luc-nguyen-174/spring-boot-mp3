@@ -1,5 +1,6 @@
 package com.example.mp3.model.music;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -16,7 +17,7 @@ public class Kind {
     String kindName;
 
     @ManyToMany(mappedBy = "kinds")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     private Set<Singer> singers;
 
     public Kind() {
