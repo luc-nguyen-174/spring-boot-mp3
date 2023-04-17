@@ -1,7 +1,6 @@
 package com.example.mp3.model.music;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,7 +11,7 @@ import java.util.Set;
 public class Singer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String singerName;
     private String gender;
@@ -33,20 +32,21 @@ public class Singer {
     @OneToMany(mappedBy = "singers")
     @JsonIgnore
     private Set<Music> musics;
+    private String image;
 
     private String otherInformation;
 
     public Singer() {
     }
 
-    public Singer(Long id, String singerName, String gender, LocalDate birthday, String story, String otherInformation) {
-        this.id = id;
+    public Singer(String singerName, String gender, LocalDate birthday, String story, String otherInformation) {
         this.singerName = singerName;
         this.gender = gender;
         this.birthday = birthday;
         this.story = story;
         this.otherInformation = otherInformation;
     }
+
 
     public Long getId() {
         return id;
@@ -106,6 +106,14 @@ public class Singer {
 
     public String getOtherInformation() {
         return otherInformation;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setOtherInformation(String otherInformation) {

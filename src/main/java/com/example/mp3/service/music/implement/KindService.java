@@ -6,7 +6,9 @@ import com.example.mp3.service.music.interfaceMusic.IKindService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class KindService implements IKindService {
@@ -31,5 +33,18 @@ public class KindService implements IKindService {
     @Override
     public void remove(Long id) {
         kindRepo.deleteById(id);
+    }
+
+    @Override
+    public Set<Kind> getKindByName(Set<String> kindNames) {
+        Set<Kind> kinds = new HashSet<>();
+
+        for (String kindName : kindNames) {
+            Kind kind = kindRepo.findByKindName(kindName);
+            if (kind != null) {
+                kinds.add(kind);
+            }
+        }
+        return kinds;
     }
 }
