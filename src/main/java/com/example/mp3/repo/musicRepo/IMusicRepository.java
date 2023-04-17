@@ -29,4 +29,6 @@ public interface IMusicRepository extends JpaRepository<Music, Long> {
                     " left join singers s on s.id = ms.singers_id " +
                     " where s.singer_name LIKE CONCAT('%', :singer_name, '%')")
     Iterable<Music> findAllBySingerName(@Param("singer_name") String singer_name);
+
+//    Iterable<Music> findAllBy
 }
