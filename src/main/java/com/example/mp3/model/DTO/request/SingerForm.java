@@ -1,14 +1,15 @@
 package com.example.mp3.model.DTO.request;
 
 import org.springframework.web.multipart.MultipartFile;
-import java.time.LocalDate;
-import java.util.Set;
+
+import java.sql.Date;
+
 
 public class SingerForm {
     private Long id;
     private String singerName;
     private String gender;
-    private LocalDate birthday;
+    private Date birthday;
     private String story;
     private MultipartFile image;
     private String otherInformation;
@@ -40,11 +41,11 @@ public class SingerForm {
         this.gender = gender;
     }
 
-    public LocalDate getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
