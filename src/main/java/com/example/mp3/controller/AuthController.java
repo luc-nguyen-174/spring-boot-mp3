@@ -57,20 +57,25 @@ public class AuthController {
         return new ResponseEntity<>(new ResponseMessage("Create user success !"), HttpStatus.OK);
     }
 
-    // login user
+    /**
+     * Xác thực thông tin đăng nhập và tạo JWT token cho người dùng.
+     *
+     * @param user thông tin đăng nhập của người dùng
+     * @return ResponseEntity chứa thông tin JWT token và thông tin người dùng
+     */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody SignInForm user) {
+    public ResponseEntity<JwtResponse> login(@RequestBody SignInForm user) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         String jwt = jwtService.generateTokenLogin(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         AppUser currentUser = userService.findByUsername(user.getUsername());
-        return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(),
-                userDetails.getUsername(), userDetails.getAuthorities()));
+        JwtResponse jwtResponse = new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(),
+                userDetails.getUsername(), userDetails.getAuthorities());
+        return ResponseEntity.ok(jwtResponse);
     }
+
 
     //edit user
     @PutMapping("/{id}")
@@ -88,11 +93,6 @@ public class AuthController {
     public ResponseEntity<Iterable<ICountRole>> hello() {
         Iterable<ICountRole> iCountRoles = userService.getRoleNumber();
         return new ResponseEntity<>(iCountRoles, HttpStatus.OK);
-    }
-
-    @GetMapping("/")
-    public ResponseEntity<String> admin() {
-        return new ResponseEntity<>("Admin", HttpStatus.OK);
     }
 
     @GetMapping("/user")

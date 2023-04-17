@@ -2,6 +2,7 @@ package com.example.mp3.model.DTO.request;
 
 public class SignInForm {
     private String username;
+    private String name;
     private String password;
 
     public SignInForm() {
