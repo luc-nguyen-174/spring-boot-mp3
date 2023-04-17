@@ -32,7 +32,7 @@ public class AppRoleService implements IAppRoleService {
 
     @Override
     public void remove(Long id) {
-
+        roleRepo.deleteById(id);
     }
 
     @Override
@@ -43,7 +43,6 @@ public class AppRoleService implements IAppRoleService {
     @Override
     public Set<AppRole> getRolesByName(Set<String> roleNames) {
         Set<AppRole> roles = new HashSet<>();
-
         for (String roleName : roleNames) {
             AppRole role = roleRepo.findByName(roleName);
             if (role != null) {

@@ -41,10 +41,8 @@ public class Playlist {
     private LocalDateTime createdDateTime;
     private LocalDateTime lastUpdatedTime;
     private Long viewsNumber;
-
     public Playlist() {
     }
-
     public Long getId() {
         return id;
     }
