@@ -68,6 +68,4 @@ public class MusicController {
         musicService.save(music);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
-
-
 }
