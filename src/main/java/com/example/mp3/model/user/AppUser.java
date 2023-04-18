@@ -62,6 +62,7 @@ public class AppUser {
     }
 
     public String getAvatar() {
+        if (avatar==null) avatar = "https://phapluatbanquyen.phaply.vn/uploads/images/users/images/2021/07/12555555.jpg";
         return avatar;
     }
 
