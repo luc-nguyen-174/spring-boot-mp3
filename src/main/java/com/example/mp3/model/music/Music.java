@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -41,7 +42,7 @@ public class Music {
 
     @ManyToMany(mappedBy = "musics")
     @JsonIgnore
-    private Set<Playlist> playlists;
+    private List<Playlist> playlists;
 
     private LocalDateTime uploadTime;
 
@@ -157,11 +158,11 @@ public class Music {
         this.authors = authors;
     }
 
-    public Set<Playlist> getPlaylists() {
+    public List<Playlist> getPlaylists() {
         return playlists;
     }
 
-    public void setPlaylists(Set<Playlist> playlists) {
+    public void setPlaylists(List<Playlist> playlists) {
         this.playlists = playlists;
     }
 

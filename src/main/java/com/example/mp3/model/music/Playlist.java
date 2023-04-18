@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,7 +30,7 @@ public class Playlist {
             inverseJoinColumns = {@JoinColumn(name = "music_id")}
     )
     @JsonIgnore
-    private Set<Music> musics;
+    private List<Music> musics;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "playlist_users",
@@ -67,11 +69,11 @@ public class Playlist {
         this.kinds = kinds;
     }
 
-    public Set<Music> getMusics() {
+    public List<Music> getMusics() {
         return musics;
     }
 
-    public void setMusics(Set<Music> musics) {
+    public void setMusics(List<Music> musics) {
         this.musics = musics;
     }
 
@@ -114,4 +116,18 @@ public class Playlist {
     public void setViewsNumber(Long viewsNumber) {
         this.viewsNumber = viewsNumber;
     }
+
+    public void addMusic(Music music) {
+        if (musics == null) {
+            musics = new ArrayList<>();
+        }
+        musics.add(music);
+    }
+
+    public void removeMusic(Music music) {
+        if (music != null) {
+            musics.remove(music);
+        }
+    }
+
 }
