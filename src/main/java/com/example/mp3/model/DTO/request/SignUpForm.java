@@ -29,7 +29,6 @@ public class SignUpForm {
     public MultipartFile getAvatar() {
         return avatar;
     }
-
     public void setAvatar(MultipartFile avatar) {
         this.avatar = avatar;
     }

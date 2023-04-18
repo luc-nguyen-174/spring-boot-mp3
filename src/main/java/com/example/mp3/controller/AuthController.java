@@ -22,13 +22,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 @RestController
 @CrossOrigin("*")
@@ -57,9 +55,8 @@ public class AuthController {
         }
         MultipartFile multipartFile = user.getAvatar();
         String avatar = multipartFile.getOriginalFilename();
-        String randomName = UUID.randomUUID().toString();
         try {
-            FileCopyUtils.copy(user.getAvatar().getBytes(), new File(fileUpload + randomName + avatar));
+            FileCopyUtils.copy(user.getAvatar().getBytes(), new File(fileUpload + avatar));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
