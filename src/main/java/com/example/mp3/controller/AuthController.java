@@ -101,7 +101,7 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/hello")
     public ResponseEntity<Iterable<ICountRole>> hello() {
         Iterable<ICountRole> iCountRoles = userService.getRoleNumber();
         return new ResponseEntity<>(iCountRoles, HttpStatus.OK);
