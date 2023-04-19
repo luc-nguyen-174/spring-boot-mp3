@@ -14,8 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
-import java.util.UUID;
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/admin/singers")
@@ -35,11 +33,11 @@ public class SingerController {
     public ResponseEntity<Singer> createSinger(@ModelAttribute SingerForm singerForm){
         MultipartFile multipartFile = singerForm.getImage();
         String fileName = multipartFile.getOriginalFilename();
-        String randomFileName = UUID.randomUUID().toString(); // Tạo tên tệp ngẫu nhiên
+//        String randomFileName = UUID.randomUUID().toString(); // Tạo tên tệp ngẫu nhiên
         String fileUpload = env.getProperty("upload.path").toString();
 
         try {
-            FileCopyUtils.copy(singerForm.getImage().getBytes(), new File(fileUpload + randomFileName + fileName));
+            FileCopyUtils.copy(singerForm.getImage().getBytes(), new File(fileUpload + fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
