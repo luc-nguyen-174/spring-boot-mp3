@@ -3,6 +3,7 @@ package com.example.mp3.model.music;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class MusicForm {
     private Long id;
@@ -13,6 +14,7 @@ public class MusicForm {
     private String albums;
     private String authors;
     private LocalDateTime uploadTime;
+    private Set<Singer> singers;
 
     public MusicForm() {
     }
