@@ -18,12 +18,8 @@ public class Music {
     private String description;
     private String fileName;
     private String imageName;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "musics_singers",
-            joinColumns = {@JoinColumn(name = "music_id")},
-            inverseJoinColumns = {@JoinColumn(name = "singers_id")}
-    )
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "singer_id")
     @JsonIgnore
     private Singer singers;
 
@@ -57,6 +53,16 @@ public class Music {
         this.authors = authors;
     }
 
+    public Music(String musicName, String description, Singer singers, Set<Kind> kinds, String albums, String authors, List<Playlist> playlists) {
+        this.musicName = musicName;
+        this.description = description;
+        this.singers = singers;
+        this.kinds = kinds;
+        this.albums = albums;
+        this.authors = authors;
+        this.playlists = playlists;
+    }
+
     public Music(String musicName, String description, String albums, String authors, LocalDateTime uploadTime) {
         this.musicName = musicName;
         this.description = description;
@@ -83,6 +89,20 @@ public class Music {
         this.imageName = imageName;
         this.albums = albums;
         this.authors = authors;
+        this.uploadTime = uploadTime;
+    }
+
+    public Music(Long id, String musicName, String description, String fileName, String imageName, Singer singers, Set<Kind> kinds, String albums, String authors, List<Playlist> playlists, LocalDateTime uploadTime) {
+        this.id = id;
+        this.musicName = musicName;
+        this.description = description;
+        this.fileName = fileName;
+        this.imageName = imageName;
+        this.singers = singers;
+        this.kinds = kinds;
+        this.albums = albums;
+        this.authors = authors;
+        this.playlists = playlists;
         this.uploadTime = uploadTime;
     }
 

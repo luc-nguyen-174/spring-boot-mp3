@@ -29,7 +29,7 @@ public class Singer {
 
     private String story;
 
-    @OneToMany(mappedBy = "singers")
+    @OneToMany(targetEntity = Music.class, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Music> musics;
     private String image;
