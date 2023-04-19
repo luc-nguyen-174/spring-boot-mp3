@@ -19,11 +19,7 @@ public class Music {
     private String fileName;
     private String imageName;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "musics_singers",
-            joinColumns = {@JoinColumn(name = "music_id")},
-            inverseJoinColumns = {@JoinColumn(name = "singers_id")}
-    )
+    @JoinColumn(name = "singer_id")
     @JsonIgnore
     private Singer singers;
 

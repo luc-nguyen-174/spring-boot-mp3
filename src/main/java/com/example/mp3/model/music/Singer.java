@@ -30,7 +30,7 @@ public class Singer {
 
     private String story;
 
-    @OneToMany(mappedBy = "singers")
+    @OneToMany(targetEntity = Music.class)
     @JsonIgnore
     private Set<Music> musics;
     private String image;
