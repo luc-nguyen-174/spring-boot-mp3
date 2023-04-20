@@ -1,5 +1,6 @@
 package com.example.mp3.controller;
 
+import com.example.mp3.model.music.Music;
 import com.example.mp3.model.user.AppRole;
 import com.example.mp3.model.user.AppUser;
 import com.example.mp3.model.DTO.ICountRole;
@@ -10,6 +11,7 @@ import com.example.mp3.model.DTO.response.ResponseMessage;
 import com.example.mp3.service.approle.IAppRoleService;
 import com.example.mp3.service.appuser.IAppUserService;
 import com.example.mp3.service.jwt.JwtService;
+import com.example.mp3.service.music.interfaceMusic.IMusicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;

@@ -15,9 +15,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import java.util.Optional;
+
+
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/admin/musics")
+@RequestMapping("/musics")
 public class MusicController {
     @Autowired
     private IMusicService musicService;
@@ -34,7 +37,7 @@ public class MusicController {
         return new ResponseEntity<>(musics, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @PostMapping("admin/create")
     public ResponseEntity<Music> createMusic(MultipartHttpServletRequest request) {
 
         Music music = new Music(request.getParameter("musicName"), request.getParameter("description"),
@@ -61,5 +64,18 @@ public class MusicController {
         music.setUploadTime(LocalDateTime.now());
         musicService.save(music);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+    //Search
+    @GetMapping("/search")
+    public ResponseEntity<List<Music>> search(
+            @RequestParam(value = "musicName") Optional<String> musicName) {
+        List<Music> musics;
+        if (musicName.isPresent()) {
+            musics = (List<Music>) musicService.findAllByMusicNameContaining(
+                    musicName.orElse("").trim().toLowerCase());
+        } else {
+            musics = (List<Music>) musicService.findAll();
+        }
+        return new ResponseEntity<>(musics, HttpStatus.OK);
     }
 }
