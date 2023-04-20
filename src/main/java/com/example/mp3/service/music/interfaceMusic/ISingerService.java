@@ -7,4 +7,6 @@ import java.util.Set;
 public interface ISingerService extends IGeneralService<Singer> {
     Singer findBySingerName(String name);
     Set<Singer> getBySingerName(Set<String> singerName);
+    Singer addMusicToSinger(Long singerId, Long musicId);
+
 }

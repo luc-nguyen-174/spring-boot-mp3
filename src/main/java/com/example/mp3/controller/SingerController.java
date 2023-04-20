@@ -1,6 +1,8 @@
 package com.example.mp3.controller;
 
 import com.example.mp3.model.DTO.request.SingerForm;
+import com.example.mp3.model.music.Music;
+import com.example.mp3.model.music.Playlist;
 import com.example.mp3.model.music.Singer;
 import com.example.mp3.service.music.interfaceMusic.ISingerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 @RestController
 @CrossOrigin("*")
@@ -48,8 +51,6 @@ public class SingerController {
     }
 
 
-
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Singer> deleteSinger(@PathVariable Long id){
         Optional<Singer> optionalSinger =singerService.findById(id);
@@ -58,5 +59,20 @@ public class SingerController {
         }
         singerService.remove(id);
         return new ResponseEntity<>(optionalSinger.get(), HttpStatus.NO_CONTENT);
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Singer> getOne(@PathVariable Long id) {
+        Optional<Singer> singer = singerService.findById(id);
+        return singer.map(singer1
+                -> new ResponseEntity<>(singer1, HttpStatus.OK)).orElseGet(()
+                -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+
+    @PostMapping("/{singerId}/musics/{musicId}")
+    public void addSongToPlaylist(@PathVariable("singerId") Long singerId, @PathVariable("musicId") Long musicId) {
+        singerService.addMusicToSinger(singerId, musicId);
     }
 }
