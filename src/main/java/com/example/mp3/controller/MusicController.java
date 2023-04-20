@@ -1,14 +1,11 @@
 package com.example.mp3.controller;
 
-import com.example.mp3.model.music.Kind;
 import com.example.mp3.model.music.Music;
-import com.example.mp3.model.music.MusicForm;
 import com.example.mp3.service.music.interfaceMusic.IMusicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -17,11 +14,11 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/admin/musics")
+@RequestMapping("/musics")
 public class MusicController {
     @Autowired
     private IMusicService musicService;
@@ -38,7 +35,7 @@ public class MusicController {
         return new ResponseEntity<>(musics, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @PostMapping("admin/create")
     public ResponseEntity<Music> createMusic(MultipartHttpServletRequest request) {
 
         Music music = new Music(request.getParameter("musicName"), request.getParameter("description"),
@@ -46,13 +43,11 @@ public class MusicController {
 
         MultipartFile fileMultipart = request.getFile("fileName");
         String fileName = fileMultipart.getOriginalFilename();
-        String randomFileName = UUID.randomUUID().toString(); // Tạo tên tệp ngẫu nhiên
 
         String fileUpload = environment.getProperty("upload.path").toString();
 
         MultipartFile imageMultipart = request.getFile("imageName");
         String imageName = imageMultipart.getOriginalFilename();
-        String randomImageName = UUID.randomUUID().toString(); // Tạo tên tệp ngẫu nhiên
 
         String imageUpload = environment.getProperty("upload.path").toString();
 
@@ -67,5 +62,18 @@ public class MusicController {
         music.setUploadTime(LocalDateTime.now());
         musicService.save(music);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+    //Search
+    @GetMapping("/search")
+    public ResponseEntity<List<Music>> search(
+            @RequestParam(value = "musicName") Optional<String> musicName) {
+        List<Music> musics;
+        if (musicName.isPresent()) {
+            musics = (List<Music>) musicService.findAllByMusicNameContaining(
+                    musicName.orElse("").trim().toLowerCase());
+        } else {
+            musics = (List<Music>) musicService.findAll();
+        }
+        return new ResponseEntity<>(musics, HttpStatus.OK);
     }
 }
