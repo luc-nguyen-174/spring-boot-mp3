@@ -78,15 +78,4 @@ public class PlaylistController {
         playlistService.removeMusicFromPlaylist(playlistId, musicId);
     }
 
-    // POST method to add song to playlist
-    @PostMapping("/{id}/add-music")
-    public void addSongToPlaylist(@PathVariable Long id, @RequestBody Music music) {
-        Optional<Playlist> playlist = playlistService.findById(id);
-        if (playlist.isPresent()) {
-            List<Music> musics = playlist.get().getMusics();
-            musics.add(music);
-            playlist.get().setMusics(musics);
-            playlistService.save(playlist.get());
-        }
-    }
 }
