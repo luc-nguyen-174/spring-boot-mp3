@@ -40,8 +40,8 @@ public class MusicService implements IMusicService {
     }
 
     @Override
-    public Iterable<Music> findAllBySingerName(String singer_name) {
-        return musicRepository.findAllBySingerName(singer_name);
+    public Iterable<Music> findAllByMusicNameContaining(String name) {
+        return musicRepository.findAllByMusicNameContaining(name);
     }
 
 
