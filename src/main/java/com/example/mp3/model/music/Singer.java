@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,7 +33,7 @@ public class Singer {
 
     @OneToMany(targetEntity = Music.class, fetch = FetchType.EAGER)
     @JsonIgnore
-    private Set<Music> musics;
+    private List<Music> musics;
     private String image;
 
     private String otherInformation;
@@ -97,11 +99,11 @@ public class Singer {
         this.story = story;
     }
 
-    public Set<Music> getMusics() {
+    public List<Music> getMusics() {
         return musics;
     }
 
-    public void setMusics(Set<Music> musics) {
+    public void setMusics(List<Music> musics) {
         this.musics = musics;
     }
 
@@ -119,5 +121,18 @@ public class Singer {
 
     public void setOtherInformation(String otherInformation) {
         this.otherInformation = otherInformation;
+    }
+
+    public void addMusic(Music music) {
+        if (musics == null) {
+            musics = new ArrayList<>();
+        }
+        musics.add(music);
+    }
+
+    public void removeMusic(Music music) {
+        if (music != null) {
+            musics.remove(music);
+        }
     }
 }
