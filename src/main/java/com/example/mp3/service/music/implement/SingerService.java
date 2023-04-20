@@ -1,6 +1,8 @@
 package com.example.mp3.service.music.implement;
 
+import com.example.mp3.model.music.Music;
 import com.example.mp3.model.music.Singer;
+import com.example.mp3.repo.musicRepo.IMusicRepository;
 import com.example.mp3.repo.musicRepo.ISingerRepo;
 import com.example.mp3.service.music.interfaceMusic.ISingerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ import java.util.Set;
 public class SingerService implements ISingerService {
     @Autowired
     private ISingerRepo singerRepo;
+
+    @Autowired
+    private IMusicRepository musicRepository;
 
     @Override
     public Iterable<Singer> findAll() {
@@ -49,5 +54,18 @@ public class SingerService implements ISingerService {
                 singers.add(singer);
         }
         return singers;
+    }
+
+    @Override
+    public Singer addMusicToSinger(Long singerId, Long musicId) {
+        Optional<Singer> singerOptional = findById(singerId);
+        Optional<Music> musicOptional = musicRepository.findById(musicId);
+        if (singerOptional.isPresent() && musicOptional.isPresent()) {
+            Singer singer = singerOptional.get();
+            Music music = musicOptional.get();
+            singer.addMusic(music);
+            return singerRepo.save(singer);
+        }
+        return null;
     }
 }

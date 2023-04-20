@@ -1,13 +1,11 @@
 package com.example.mp3.controller;
 
-import com.example.mp3.model.music.*;
+import com.example.mp3.model.music.Music;
 import com.example.mp3.service.music.interfaceMusic.IMusicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -16,8 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 @RestController
 @CrossOrigin("*")
@@ -40,9 +36,9 @@ public class MusicController {
 
     @PostMapping("/create")
     public ResponseEntity<Music> createMusic(MultipartHttpServletRequest request) {
-        Singer singer = new Singer();
-        Music music = new Music(request.getParameter("musicName"), request.getParameter("description"), (Singer) request.getAttribute("singers"), (Set<Kind>) request.getAttribute("kinds"),
-                request.getParameter("albums"), request.getParameter("authors"), (List<Playlist>) request.getAttribute("playlits"));
+
+        Music music = new Music(request.getParameter("musicName"), request.getParameter("description"),
+                request.getParameter("albums"), request.getParameter("authors"));
 
         MultipartFile fileMultipart = request.getFile("fileName");
         String fileName = fileMultipart.getOriginalFilename();
@@ -66,6 +62,4 @@ public class MusicController {
         musicService.save(music);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
-
-
 }
